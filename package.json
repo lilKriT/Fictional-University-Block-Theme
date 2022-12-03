@@ -1,0 +1,30 @@
+{
+  "name": "fictional-block-theme",
+  "version": "1.0.0",
+  "description": "My first attempt at a block theme. Following a Udemy tutorial.\r Created by lilKriT.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "wp-scripts build",
+    "start": "wp-scripts start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lilKriT/Fictional-University-Block-Theme.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lilKriT/Fictional-University-Block-Theme/issues"
+  },
+  "homepage": "https://github.com/lilKriT/Fictional-University-Block-Theme#readme",
+  "devDependencies": {
+    "@wordpress/scripts": "^24.6.0"
+  },
+  "dependencies": {
+    "@glidejs/glide": "^3.6.0",
+    "axios": "^0.27.2",
+    "normalize.css": "^8.0.1"
+  }
+}

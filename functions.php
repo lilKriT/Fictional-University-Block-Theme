@@ -39,6 +39,12 @@ function university_features()
     add_image_size("professorLandscape", 400, 260, true);
     add_image_size("professorPortrait", 480, 650, true);
     add_image_size("pageBanner", 1500, 350, true);
+
+    // This is for the block theme.
+    add_theme_support("editor-styles");
+    add_editor_style(array(
+        "https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Roboto:ital,wght@0,100;0,300;0,400;0,700;1,400;1,700", "build/style-index.css", "build/index.css"
+    ));
 }
 add_action("after_setup_theme", "university_features");
 
@@ -199,3 +205,14 @@ function ignoreCertainFiles($exclude_filters)
     return $exclude_filters;
 }
 add_filter('ai1wm_exclude_content_from_export', "ignoreCertainFiles");
+
+// This is new to the block theme
+// This will add the block to our theme.
+function bannerBlock()
+{
+    wp_register_script("bannerBlockScript", get_stylesheet_directory_uri() . "/build/banner.js", array("wp-blocks", "wp-editor"));
+    register_block_type("ourblocktheme/banner", array(
+        "editor_script" => "bannerBlockScript"
+    ));
+}
+add_action("init", "bannerBlock");

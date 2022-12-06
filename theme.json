@@ -1,5 +1,15 @@
 {
   "version": 2,
+  "styles": {
+    "blocks": {
+      "core/button": {
+        "color": {
+          "text": "#FFFFFF",
+          "background": "var(--wp--preset--color--primary)"
+        }
+      }
+    }
+  },
   "settings": {
     "layout": {
       "contentSize": "840px"

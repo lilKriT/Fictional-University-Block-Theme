@@ -11,6 +11,9 @@
     }
   },
   "settings": {
+    "typography": {
+      "fontSizes": []
+    },
     "blocks": {
       "core/button": {
         "border": {

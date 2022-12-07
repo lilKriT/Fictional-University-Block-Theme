@@ -40,7 +40,12 @@ function EditComponent() {
         }}
       ></div>
       <div className="page-banner__content container t-center c-white">
-        <InnerBlocks allowedBlocks={["ourblocktheme/genericheading"]} />
+        <InnerBlocks
+          allowedBlocks={[
+            "ourblocktheme/genericheading",
+            "ourblocktheme/genericbutton",
+          ]}
+        />
       </div>
     </div>
   );

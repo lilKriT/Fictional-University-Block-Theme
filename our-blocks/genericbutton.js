@@ -13,6 +13,7 @@ import {
   InspectorControls,
   BlockControls,
   __experimentalLinkControl as LinkControl,
+  getColorObjectByColorValue,
 } from "@wordpress/block-editor";
 import { link } from "@wordpress/icons"; // you need to install this one!
 import { useState } from "@wordpress/element";
@@ -23,7 +24,7 @@ registerBlockType("ourblocktheme/genericbutton", {
     text: { type: "string" },
     size: { type: "string", default: "large" },
     linkObject: { type: "object", default: { url: "" } },
-    colorName: { type: "string" },
+    colorName: { type: "string", default: "blue" },
   },
   edit: EditComponent,
   save: SaveComponent,
@@ -45,7 +46,9 @@ function EditComponent(props) {
   }
 
   function handleColorChange(colorCode) {
-    props.setAttributes({ colorName: colorCode });
+    // Find name of color
+    const { name } = getColorObjectByColorValue(ourColors, colorCode);
+    props.setAttributes({ colorName: name });
   }
 
   const ourColors = [
@@ -53,6 +56,9 @@ function EditComponent(props) {
     { name: "orange", color: "#ee964b" },
     { name: "dark-orange", color: "#f95738" },
   ];
+  const currentColorValue = ourColors.filter((color) => {
+    return color.name == props.attributes.colorName;
+  })[0].color;
 
   return (
     <>
@@ -93,7 +99,7 @@ function EditComponent(props) {
           <PanelRow>
             <ColorPalette
               colors={ourColors}
-              value={props.attributes.colorName}
+              value={currentColorValue}
               onChange={handleColorChange}
             />
           </PanelRow>

@@ -1,6 +1,7 @@
 import { ToolbarGroup, ToolbarButton } from "@wordpress/components";
 import { registerBlockType } from "@wordpress/blocks";
 import { RichText, BlockControls } from "@wordpress/block-editor";
+import { link } from "@wordpress/icons"; // you need to install this one!
 
 registerBlockType("ourblocktheme/genericbutton", {
   title: "Generic Button",
@@ -17,9 +18,14 @@ function EditComponent(props) {
     props.setAttributes({ text: x });
   }
 
+  function buttonHandler() {}
+
   return (
     <>
       <BlockControls>
+        <ToolbarGroup>
+          <ToolbarButton onClick={buttonHandler} icon={link} />
+        </ToolbarGroup>
         <ToolbarGroup>
           <ToolbarButton
             isPressed={props.attributes.size === "large"}
@@ -50,7 +56,7 @@ function EditComponent(props) {
       <RichText
         tagName="a"
         allowedFormats={[]}
-        className={`btn btn--${props.attributes.size}`}
+        className={`btn btn--${props.attributes.size} btn--blue`}
         value={props.attributes.text}
         onChange={handleTextChange}
       />
@@ -60,7 +66,7 @@ function EditComponent(props) {
 
 function SaveComponent(props) {
   return (
-    <a href="#" className={`btn btn--${props.attributes.size}`}>
+    <a href="#" className={`btn btn--${props.attributes.size} btn--blue`}>
       {props.attributes.text}
     </a>
   );

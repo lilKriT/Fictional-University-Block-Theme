@@ -17,6 +17,7 @@ import {
 } from "@wordpress/block-editor";
 import { link } from "@wordpress/icons"; // you need to install this one!
 import { useState } from "@wordpress/element";
+import ourColors from "../includes/ourColors";
 
 registerBlockType("ourblocktheme/genericbutton", {
   title: "Generic Button",
@@ -51,11 +52,6 @@ function EditComponent(props) {
     props.setAttributes({ colorName: name });
   }
 
-  const ourColors = [
-    { name: "blue", color: "#0d3b66" },
-    { name: "orange", color: "#ee964b" },
-    { name: "dark-orange", color: "#f95738" },
-  ];
   const currentColorValue = ourColors.filter((color) => {
     return color.name == props.attributes.colorName;
   })[0].color;
@@ -101,6 +97,8 @@ function EditComponent(props) {
               colors={ourColors}
               value={currentColorValue}
               onChange={handleColorChange}
+              disableCustomColors={true}
+              clearable={false}
             />
           </PanelRow>
         </PanelBody>

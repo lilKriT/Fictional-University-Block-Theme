@@ -109,7 +109,7 @@ function EditComponent(props) {
       <RichText
         tagName="a"
         allowedFormats={[]}
-        className={`btn btn--${props.attributes.size} btn--blue`}
+        className={`btn btn--${props.attributes.size} btn--${props.attributes.colorName}`}
         value={props.attributes.text}
         onChange={handleTextChange}
       />
@@ -137,7 +137,7 @@ function SaveComponent(props) {
   return (
     <a
       href={props.attributes.linkObject.url}
-      className={`btn btn--${props.attributes.size} btn--blue`}
+      className={`btn btn--${props.attributes.size} btn--${props.attributes.colorName}`}
     >
       {props.attributes.text}
     </a>

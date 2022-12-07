@@ -1,6 +1,15 @@
-import { ToolbarGroup, ToolbarButton, Popover } from "@wordpress/components";
+import {
+  ToolbarGroup,
+  ToolbarButton,
+  Popover,
+  Button,
+} from "@wordpress/components";
 import { registerBlockType } from "@wordpress/blocks";
-import { RichText, BlockControls } from "@wordpress/block-editor";
+import {
+  RichText,
+  BlockControls,
+  __experimentalLinkControl as LinkControl,
+} from "@wordpress/block-editor";
 import { link } from "@wordpress/icons"; // you need to install this one!
 import { useState } from "@wordpress/element";
 
@@ -9,6 +18,7 @@ registerBlockType("ourblocktheme/genericbutton", {
   attributes: {
     text: { type: "string" },
     size: { type: "string", default: "large" },
+    linkObject: { type: "object" },
   },
   edit: EditComponent,
   save: SaveComponent,
@@ -23,6 +33,10 @@ function EditComponent(props) {
 
   function buttonHandler() {
     setIsLinkPickerVisible((prev) => !prev);
+  }
+
+  function handleLinkChange(newLink) {
+    props.setAttributes({ linkObject: newLink });
   }
 
   return (
@@ -65,7 +79,22 @@ function EditComponent(props) {
         value={props.attributes.text}
         onChange={handleTextChange}
       />
-      {isLinkPickerVisible && <Popover>Hello!!!</Popover>}
+      {isLinkPickerVisible && (
+        <Popover position="middle center">
+          <LinkControl
+            settings={[]}
+            value={props.attributes.linkObject}
+            onChange={handleLinkChange}
+          />
+          <Button
+            variant="primary"
+            onClick={() => setIsLinkPickerVisible(false)}
+            style={{ display: "block", width: "100%" }}
+          >
+            Save Link
+          </Button>
+        </Popover>
+      )}
     </>
   );
 }

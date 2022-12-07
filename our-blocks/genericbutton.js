@@ -18,7 +18,7 @@ registerBlockType("ourblocktheme/genericbutton", {
   attributes: {
     text: { type: "string" },
     size: { type: "string", default: "large" },
-    linkObject: { type: "object" },
+    linkObject: { type: "object", default: { url: "" } },
   },
   edit: EditComponent,
   save: SaveComponent,

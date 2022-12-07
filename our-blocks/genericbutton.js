@@ -1,7 +1,8 @@
-import { ToolbarGroup, ToolbarButton } from "@wordpress/components";
+import { ToolbarGroup, ToolbarButton, Popover } from "@wordpress/components";
 import { registerBlockType } from "@wordpress/blocks";
 import { RichText, BlockControls } from "@wordpress/block-editor";
 import { link } from "@wordpress/icons"; // you need to install this one!
+import { useState } from "@wordpress/element";
 
 registerBlockType("ourblocktheme/genericbutton", {
   title: "Generic Button",
@@ -14,11 +15,15 @@ registerBlockType("ourblocktheme/genericbutton", {
 });
 
 function EditComponent(props) {
+  const [isLinkPickerVisible, setIsLinkPickerVisible] = useState(false);
+
   function handleTextChange(x) {
     props.setAttributes({ text: x });
   }
 
-  function buttonHandler() {}
+  function buttonHandler() {
+    setIsLinkPickerVisible((prev) => !prev);
+  }
 
   return (
     <>
@@ -60,6 +65,7 @@ function EditComponent(props) {
         value={props.attributes.text}
         onChange={handleTextChange}
       />
+      {isLinkPickerVisible && <Popover>Hello!!!</Popover>}
     </>
   );
 }

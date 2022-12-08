@@ -26,16 +26,18 @@ registerBlockType("ourblocktheme/banner", {
 function EditComponent(props) {
   useEffect(
     function () {
-      async function go() {
-        const res = await apiFetch({
-          path: `/wp/v2/media/${props.attributes.imgID}`,
-          method: "GET",
-        });
-        props.setAttributes({
-          imgURL: res.media_details.sizes.pageBanner.source_url,
-        });
+      if (props.attributes.imgID) {
+        async function go() {
+          const res = await apiFetch({
+            path: `/wp/v2/media/${props.attributes.imgID}`,
+            method: "GET",
+          });
+          props.setAttributes({
+            imgURL: res.media_details.sizes.pageBanner.source_url,
+          });
+        }
+        go();
       }
-      go();
     },
     [props.attributes.imgID]
   );

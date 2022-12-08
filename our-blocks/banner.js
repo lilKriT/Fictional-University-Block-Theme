@@ -17,7 +17,7 @@ registerBlockType("ourblocktheme/banner", {
   attributes: {
     align: { type: "string", default: "full" },
     imgID: { type: "number" },
-    imgURL: { type: "string" },
+    imgURL: { type: "string", default: window.banner.fallbackimage },
   },
   edit: EditComponent,
   save: SaveComponent,

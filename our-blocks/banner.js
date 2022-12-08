@@ -6,6 +6,8 @@ import {
 } from "@wordpress/block-editor";
 import { registerBlockType } from "@wordpress/blocks";
 import { Button, PanelBody, PanelRow } from "@wordpress/components";
+import apiFetch from "@wordpress/api-fetch";
+import { useEffect } from "@wordpress/element";
 
 registerBlockType("ourblocktheme/banner", {
   title: "Banner",
@@ -15,26 +17,27 @@ registerBlockType("ourblocktheme/banner", {
   attributes: {
     align: { type: "string", default: "full" },
     imgID: { type: "number" },
+    imgURL: { type: "string" },
   },
   edit: EditComponent,
   save: SaveComponent,
 });
 
 function EditComponent(props) {
-  const useLater = (
-    <>
-      <h1 className="headline headline--large">Welcome!</h1>
-      <h2 className="headline headline--medium">
-        We think you&rsquo;ll like it here.
-      </h2>
-      <h3 className="headline headline--small">
-        Why don&rsquo;t you check out the <strong>major</strong> you&rsquo;re
-        interested in?
-      </h3>
-      <a href="#" className="btn btn--large btn--blue">
-        Find Your Major
-      </a>
-    </>
+  useEffect(
+    function () {
+      async function go() {
+        const res = await apiFetch({
+          path: `/wp/v2/media/${props.attributes.imgID}`,
+          method: "GET",
+        });
+        props.setAttributes({
+          imgURL: res.media_details.sizes.pageBanner.source_url,
+        });
+      }
+      go();
+    },
+    [props.attributes.imgID]
   );
 
   function onFileSelect(x) {
@@ -63,8 +66,7 @@ function EditComponent(props) {
         <div
           className="page-banner__bg-image"
           style={{
-            backgroundImage:
-              "url('/wp-content/themes/fictional-block-theme/images/library-hero.jpg')",
+            backgroundImage: `url('${props.attributes.imgURL}')`,
           }}
         ></div>
         <div className="page-banner__content container t-center c-white">

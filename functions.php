@@ -206,34 +206,38 @@ function ignoreCertainFiles($exclude_filters)
 }
 add_filter('ai1wm_exclude_content_from_export', "ignoreCertainFiles");
 
-// This is new to the block theme
-// This will add the block to our theme.
-// function bannerBlock()
-// {
-//     wp_register_script("bannerBlockScript", get_stylesheet_directory_uri() . "/build/banner.js", array("wp-blocks", "wp-editor"));
-//     register_block_type("ourblocktheme/banner", array(
-//         "editor_script" => "bannerBlockScript"
-//     ));
-// }
-// add_action("init", "bannerBlock");
-
 class JSXBlock
 {
-    function __construct($name)
+    function __construct($name, $renderCallback = null)
     {
         $this->name = $name;
+        $this->renderCallback = $renderCallback;
         add_action("init", [$this, "onInit"]);
+    }
+
+    function ourRenderCallback($attributes, $content)
+    {
+        ob_start();
+        require get_theme_file_path("/our-blocks/{$this->name}.php");
+        return ob_get_clean();
     }
 
     function onInit()
     {
         wp_register_script($this->name, get_stylesheet_directory_uri() . "/build/{$this->name}.js", array("wp-blocks", "wp-editor"));
-        register_block_type("ourblocktheme/{$this->name}", array(
+        $ourArgs = array(
             "editor_script" => $this->name
-        ));
+        );
+
+        // if ($this->$renderCallback) {
+        if ($this->renderCallback) {
+            $ourArgs['render_callback'] = [$this, 'ourRenderCallback'];
+        }
+
+        register_block_type("ourblocktheme/{$this->name}", $ourArgs);
     }
 }
 
-new JSXBlock('banner');
+new JSXBlock('banner', true);
 new JSXBlock('genericheading');
 new JSXBlock('genericbutton');

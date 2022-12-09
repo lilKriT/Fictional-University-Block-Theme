@@ -247,6 +247,7 @@ class JSXBlock
 new JSXBlock('banner', true, ['fallbackimage' => get_theme_file_uri("/images/library-hero.jpg")]);
 new JSXBlock('genericheading');
 new JSXBlock('genericbutton');
+new JSXBlock('slideshow', true);
 
 class PlaceholderBlock
 {

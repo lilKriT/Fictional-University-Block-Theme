@@ -248,6 +248,7 @@ new JSXBlock('banner', true, ['fallbackimage' => get_theme_file_uri("/images/lib
 new JSXBlock('genericheading');
 new JSXBlock('genericbutton');
 new JSXBlock('slideshow', true);
+new JSXBlock('slide', true);
 
 class PlaceholderBlock
 {

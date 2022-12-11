@@ -285,3 +285,4 @@ new PlaceholderBlock("footer");
 // Other templates
 new PlaceholderBlock("singlepost");
 new PlaceholderBlock("page");
+new PlaceholderBlock("blogindex");

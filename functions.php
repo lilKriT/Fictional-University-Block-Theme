@@ -278,6 +278,9 @@ class PlaceholderBlock
     }
 }
 
+// Those are for the main page
 new PlaceholderBlock("eventsandblogs");
 new PlaceholderBlock("header");
 new PlaceholderBlock("footer");
+// Other templates
+new PlaceholderBlock("singlepost");

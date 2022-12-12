@@ -291,3 +291,22 @@ new PlaceholderBlock("singleprogram");
 new PlaceholderBlock("singleprofessor");
 new PlaceholderBlock("singleprofessor");
 new PlaceholderBlock("mynotes");
+
+function myallowedblocks($allowed_block_types, $editor_context)
+{
+    // based on post type
+    // if($editor_context->post->post_type = "professor"){
+    //     return something;
+    // you can restrict the standard elements too
+    // return array("core/paragraph");
+    // }
+
+    // If youre on a page or post editor screen
+    if (!empty($editor_context->post)) {
+        return $allowed_block_types;
+    }
+
+    // If in full site editor screen
+    return array("ourblocktheme/header", "ourblocktheme/footer");
+}
+add_filter("allowed_block_types_all", "myallowedblocks", 10, 2);

@@ -310,3 +310,14 @@ function myallowedblocks($allowed_block_types, $editor_context)
     return array("ourblocktheme/header", "ourblocktheme/footer");
 }
 add_filter("allowed_block_types_all", "myallowedblocks", 10, 2);
+
+
+// Add query vars
+function universityQueryVars($vars)
+{
+    // registering a new query var
+    $vars[] = "skyColor";
+    $vars[] = "grassColor";
+    return $vars;
+}
+add_filter("query_vars", "universityQueryVars");
